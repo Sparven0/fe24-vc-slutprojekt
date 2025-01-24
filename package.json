@@ -13,5 +13,8 @@
   "devDependencies": {
     "del-cli": "^6.0.0",
     "parcel": "^2.13.3"
+  },
+  "dependencies": {
+    "animejs": "^3.2.2"
   }
 }
