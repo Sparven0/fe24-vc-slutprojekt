@@ -28,10 +28,15 @@
 }
 
 .message {
-    border: 1px solid #ccc;
+    border: 3px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    position: absolute;
 }
 
 .message h4 {
@@ -50,9 +55,29 @@
 
 #messagesContainer {
     width: 100%;
+<<<<<<< HEAD
 }
 
 /* Alriks feature*/
 .shadowBanned {
     display: none;
+=======
+    overflow: scroll;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.removeButton{
+    border-radius: 10rem;
+    aspect-ratio: 1/1;
+    border:none;
+    padding: 1px;
+}
+
+.removeButton:hover{
+    background-color: red;
+    color: white;
+>>>>>>> origin/main
 }

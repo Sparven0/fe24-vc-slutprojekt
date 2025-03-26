@@ -3,6 +3,7 @@ export class Message {
         this._username = username;
         this._message = message;
         this._color = color;
+<<<<<<< HEAD
         this._shadowBanned = shadowBanned;
     }
     get username() {
@@ -18,3 +19,7 @@ export class Message {
         return this._shadowBanned;
     } 
 }
+=======
+
+}}
+>>>>>>> origin/main

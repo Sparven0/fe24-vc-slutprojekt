@@ -10,6 +10,9 @@ messageForm.addEventListener('submit', async (event) => {
     const color = createRandomColor();
     const shadowBanned = formData.get('shadowBanned'); //alriks test input för att man kan sätt shadowBanned
 
+ 
+
+
     if(!username || !message) {
         console.error("Username and message are required");
         return;
@@ -29,15 +32,38 @@ messageForm.addEventListener('submit', async (event) => {
 });
 
 
+
+
+let difference = 0;
+const MIN_COLOR_VALUE = 100;
+
 function createRandomColor() {
     const timestamp = Date.now();
-    const red = timestamp % 256;
-    const green = (timestamp >> 8) % 256;
-    const blue = (timestamp >> 16) % 256;
+
+    let red = (timestamp + difference) % 256;
+    let green = ((timestamp + difference) >> 8) % 256;
+    let blue = ((timestamp + difference) >> 16) % 256;
+    red = Math.max(red, MIN_COLOR_VALUE);
+    green = Math.max(green, MIN_COLOR_VALUE);
+    blue = Math.max(blue, MIN_COLOR_VALUE);
+    const MIN_DIFF = 50; 
+    if (Math.abs(red - green) < MIN_DIFF) {
+        green = (green + 100) % 256;
+    }
+    if (Math.abs(green - blue) < MIN_DIFF) {
+        blue = (blue + 100) % 256;
+    }
+    if (Math.abs(blue - red) < MIN_DIFF) {
+        red = (red + 100) % 256;
+    }
+
     const rgbColor = `rgb(${red}, ${green}, ${blue})`;
     console.log(rgbColor);
+
+    difference += 100;
     return rgbColor;
 }
+
 
 
 

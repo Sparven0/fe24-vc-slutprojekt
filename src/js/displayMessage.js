@@ -1,28 +1,39 @@
 import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
+import { removeMessageById } from "./fetch";
 
 export function displayMessages(containerId) {
-    const messagesRef = ref(database, 'messages'); 
-    const container = document.getElementById(containerId);
+  const messagesRef = ref(database, "messages");
+  const container = document.getElementById(containerId);
 
-    if (!container) {
-        console.error(`Container with ID "${containerId}" not found.`);
-        return;
-    }
+  if (!container) {
+    console.error(`Container with ID "${containerId}" not found.`);
+    return;
+  }
+
+  container.style.position = "relative";
+
+  const displayedMessages = {};
 
     onValue(messagesRef, (snapshot) => {
         const messages = snapshot.val();
         container.innerHTML = ""; 
 
-        if (messages) {
-            Object.entries(messages).forEach(([id, message]) => { 
-                const messageElement = createMessageElement(id, message);
-                container.appendChild(messageElement);
-            });
-        } else {
-            container.innerHTML = "<p>No messages available.</p>";
+    if (messages) {
+      Object.entries(messages).forEach(([id, message]) => {
+        if (!displayedMessages[id]) {
+          const messageElement = createMessageElement(
+            id,
+            message,
+            container,
+            displayedMessages
+          );
+          container.appendChild(messageElement);
+          displayedMessages[id] = messageElement;
         }
-    });
+      });
+    }
+  });
 }
 
 function createMessageElement(id, message) {
@@ -45,5 +56,5 @@ function createMessageElement(id, message) {
     messageDiv.appendChild(username);
     messageDiv.appendChild(text);
 
-    return messageDiv;
+  return messageDiv;
 }

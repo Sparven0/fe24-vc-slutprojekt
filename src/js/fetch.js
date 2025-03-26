@@ -1,4 +1,4 @@
-import { ref, push } from "firebase/database";
+import { ref, push, set } from "firebase/database";
 import {database} from "./firebase.js";
 
 export async function postMessage(Message){    
@@ -9,5 +9,16 @@ export async function postMessage(Message){
     } catch (error) {
         console.error("Error posting message:", error);
         return { success: false, message: "Error posting message" };
+    }
+}
+
+
+export async function removeMessageById(id) {
+    try {
+        const messageRef = ref(database, `messages/${id}`);
+        await set(messageRef, null);
+        console.log(`Message with ID: ${id} removed successfully.`);
+    } catch (error) {
+        console.error(`Error removing message with ID: ${id}`, error);
     }
 }
