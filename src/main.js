@@ -1,3 +1,3 @@
-import { displayMessages } from "./js/displayMessage";
+import { displayMessages } from "./js/displayMessage.js";
 
-displayMessages("messagesContainer")
+displayMessages("messagesContainer");
