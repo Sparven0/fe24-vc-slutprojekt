@@ -10,21 +10,55 @@
   height: 100vh;
 }
 
-.leftBar {
-  width: 20%;
-  background-color: #a2a2a2;
-  padding: 10px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.leftBar{
+    width: 20%;
+    background: rgb(203,200,255);
+background: linear-gradient(0deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 47%, rgba(0,212,255,1) 100%);
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.formDiv {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#messageTxt{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#messageForm button{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #4346fd;
+    color: white;
+    font-weight: bold;
+}
+
+#messageForm button:hover{
+    background-color: #6b6eff;
+    color: white;
+    cursor: pointer
+}
+.formDiv{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .message {
@@ -44,6 +78,16 @@
 }
 
 .message h4 {
+<<<<<<< HEAD
+    margin: 0;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.message p {
+    margin: 5px 0;
+    width: 100%;
+=======
   margin: 0;
   width: 100%;
   font-size: 1.2em;
@@ -52,6 +96,7 @@
 .message p {
   margin: 5px 0;
   width: 100%;
+>>>>>>> origin/main
 }
 
 .message span {
@@ -60,22 +105,34 @@
 }
 
 #messagesContainer {
-  width: 100%;
-  overflow: scroll;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  background-color: #f9f9f9;
+    width: 100%;
+    overflow: scroll;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    padding-left: 2%;
 }
 
 /* Alriks feature*/
 .shadowBanned {
-  display: none;
+    display: none;
 }
 
+.removeButton{
+   
+    border:none;
+    background-color: transparent;
+}
+
+<<<<<<< HEAD
+.removeButton:hover{
+   cursor: pointer;
+=======
 .removeButton:hover {
   background-color: red;
   color: white;
+>>>>>>> origin/main
 }
 
 #fireworksContainer {

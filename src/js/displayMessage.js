@@ -61,7 +61,7 @@ function createMessageElement(id, message, container, displayedMessages) {
   contentContainer.appendChild(username);
   contentContainer.appendChild(text);
   const removeButton = document.createElement("button");
-  removeButton.textContent = "Remove";
+  removeButton.textContent = '❌';
   removeButton.classList.add("removeButton");
 
   const color = message._color;
@@ -85,12 +85,13 @@ function createMessageElement(id, message, container, displayedMessages) {
         }, 1000);
       }, delay);
     });
-  });
 
-  const containerWidth = container.offsetWidth;
-  const containerHeight = container.offsetHeight;
-  const messageWidth = 150;
-  const messageHeight = 100;
+    
+    
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+    const messageWidth = 150;
+    const messageHeight = 100;
 
   let randomX, randomY, isOverlapping;
 
