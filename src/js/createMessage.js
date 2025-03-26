@@ -30,6 +30,8 @@ messageForm.addEventListener('submit', async (event) => {
 });
 
 
+
+
 let difference = 0;
 const MIN_COLOR_VALUE = 100;
 
