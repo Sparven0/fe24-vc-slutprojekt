@@ -39,7 +39,8 @@ function createMessageElement(id, message) {
     const color = message._color;
     messageDiv.style.borderColor = color;
     
- 
+    const shadowBanned = message._shadowBanned;
+    messageDiv.classList.add("shadowBanned");
 
     messageDiv.appendChild(username);
     messageDiv.appendChild(text);

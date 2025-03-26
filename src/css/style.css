@@ -51,3 +51,8 @@
 #messagesContainer {
     width: 100%;
 }
+
+/* Alriks feature*/
+.shadowBanned {
+    display: none;
+}
