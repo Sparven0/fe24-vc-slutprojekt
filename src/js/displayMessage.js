@@ -60,19 +60,29 @@ function createMessageElement(id, message, container, displayedMessages) {
   removeButton.textContent = "Remove";
   removeButton.classList.add("removeButton");
 
-  const color = message._color;
-  messageDiv.style.borderColor = color;
-  messageDiv.append(username, text, removeButton);
+    const color = message._color;
+    messageDiv.style.borderColor = color;
+    messageDiv.append(username, text, removeButton);
+   
 
-  removeButton.addEventListener("click", async () => {
-    console.log(`Removing message with ID: ${id}`);
-    await removeMessageById(id);
-  });
+    messageDiv.addEventListener("click", async () => {
+        console.log(id);
+        removeMessageById(id);
+        const allmessages = document.querySelectorAll(".message");
+        allmessages.forEach((message) => {
+            const delay = Math.random() * 500; // Random delay in milliseconds
+            setTimeout(() => {
+                message.classList.add('shake');
+            }, delay);
+        });
+    });
 
-  const containerWidth = container.offsetWidth;
-  const containerHeight = container.offsetHeight;
-  const messageWidth = 150;
-  const messageHeight = 100;
+    
+    
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+    const messageWidth = 150;
+    const messageHeight = 100;
 
   let randomX, randomY, isOverlapping;
 
