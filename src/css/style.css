@@ -32,20 +32,26 @@
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  width: 15%;
+  width: auto;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   background-color: white;
   position: absolute;
+  word-wrap: break-word;
+  min-width: none;
+  max-width: 25%;
 }
 
 .message h4 {
   margin: 0;
+  width: 100%;
   font-size: 1.2em;
 }
 
 .message p {
   margin: 5px 0;
+  width: 100%;
 }
 
 .message span {
@@ -67,27 +73,31 @@
   display: none;
 }
 
-.removeButton:hover{
-    background-color: red;
-    color: white;
+.removeButton:hover {
+  background-color: red;
+  color: white;
 }
 
 #fireworksContainer {
-    position: absolute;
-    top: 0;
-    left: 20%;
-    width: 80%;
-    height: 100%;
-    z-index: 99999999999999;
-    
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 80%;
+  height: 100%;
+  z-index: 99999999999999;
 }
 .removeButton {
   border-radius: 10rem;
   aspect-ratio: 1/1;
   border: none;
   padding: 1px;
+  margin-left: auto;
 }
 
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+}
 
 @keyframes shake {
   0% {

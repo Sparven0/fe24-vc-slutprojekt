@@ -50,12 +50,16 @@ function createMessageElement(id, message, container, displayedMessages) {
   messageDiv.classList.add("message");
   messageDiv.setAttribute("data-id", id);
 
+  const contentContainer = document.createElement("div");
+  contentContainer.classList.add("contentContainer");
+
   const username = document.createElement("h4");
   username.textContent = message._username;
 
   const text = document.createElement("p");
   text.textContent = message._message;
-
+  contentContainer.appendChild(username);
+  contentContainer.appendChild(text);
   const removeButton = document.createElement("button");
   removeButton.textContent = "Remove";
   removeButton.classList.add("removeButton");
@@ -66,7 +70,7 @@ function createMessageElement(id, message, container, displayedMessages) {
   if (shadowBanned) {
     messageDiv.classList.add("shadowBanned");
   }
-  messageDiv.append(username, text, removeButton);
+  messageDiv.append(contentContainer, removeButton);
 
   removeButton.addEventListener("click", async () => {
     console.log(id);
@@ -76,9 +80,9 @@ function createMessageElement(id, message, container, displayedMessages) {
       const delay = Math.random() * 500;
       setTimeout(() => {
         message.classList.add("shake");
-          setTimeout(() => {
+        setTimeout(() => {
           message.classList.remove("shake");
-        }, 1000); 
+        }, 1000);
       }, delay);
     });
   });
