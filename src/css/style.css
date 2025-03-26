@@ -28,6 +28,13 @@ input[type="text"]{
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+input[type="text"]:focus,
+#messageTxt:focus {
+    outline: none; 
+    border-color: #6b6eff; 
+    box-shadow: 0 0 5px rgba(107, 110, 255, 0.5); 
+}
+
 
 #messageTxt{
     width: 100%;
