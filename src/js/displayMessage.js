@@ -50,32 +50,40 @@ function createMessageElement(id, message, container, displayedMessages) {
   messageDiv.classList.add("message");
   messageDiv.setAttribute("data-id", id);
 
+  const contentContainer = document.createElement("div");
+  contentContainer.classList.add("contentContainer");
+
   const username = document.createElement("h4");
   username.textContent = message._username;
 
   const text = document.createElement("p");
   text.textContent = message._message;
-
+  contentContainer.appendChild(username);
+  contentContainer.appendChild(text);
   const removeButton = document.createElement("button");
   removeButton.textContent = '❌';
   removeButton.classList.add("removeButton");
 
-    const color = message._color;
-    messageDiv.style.borderColor = color;
-    messageDiv.append(username, text, removeButton);
-   
+  const color = message._color;
+  messageDiv.style.borderColor = color;
+  const shadowBanned = message._shadowBanned;
+  if (shadowBanned) {
+    messageDiv.classList.add("shadowBanned");
+  }
+  messageDiv.append(contentContainer, removeButton);
 
-    removeButton.addEventListener("click", async () => {
-        const allmessages = document.querySelectorAll(".message");
-        console.log(id);
-        removeMessageById(id);
-        allmessages.forEach((message) => { 
-            const delay = Math.random() * 500; 
-            setTimeout(() => {
-                message.classList.add('shake');
-            }, delay);
-            message.classList.remove('shake');
-        });
+  removeButton.addEventListener("click", async () => {
+    console.log(id);
+    removeMessageById(id);
+    const allmessages = document.querySelectorAll(".message");
+    allmessages.forEach((message) => {
+      const delay = Math.random() * 500;
+      setTimeout(() => {
+        message.classList.add("shake");
+        setTimeout(() => {
+          message.classList.remove("shake");
+        }, 1000);
+      }, delay);
     });
 
     

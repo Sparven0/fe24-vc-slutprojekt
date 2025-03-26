@@ -45,14 +45,14 @@ messageForm.addEventListener('submit', async (event) => {
                 acceleration: 1.05,
                 friction: 0.98,
                 gravity: 1.5,
-                particles: 150, // Increase the number of particles for bigger explosions
-                trace: 3, // Increase the trace for a more dramatic effect
-                explosion: 10, // Increase the explosion size
-                intensity: 50, // Increase intensity for more particles per explosion
+                particles: 150, 
+                trace: 3, 
+                explosion: 10, 
+                intensity: 50, 
                 flickering: 50,
                 lineWidth: {
                     trace: 2,
-                    explosion: 4, // Thicker explosion lines
+                    explosion: 4, 
                 },
                 brightness: {
                     min: 50,
