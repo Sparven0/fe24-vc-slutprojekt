@@ -3,84 +3,101 @@ import { ref, onValue } from "firebase/database";
 import { removeMessageById } from "./fetch";
 
 export function displayMessages(containerId) {
-    const messagesRef = ref(database, 'messages'); 
-    const container = document.getElementById(containerId);
+  const messagesRef = ref(database, "messages");
+  const container = document.getElementById(containerId);
 
-    if (!container) {
-        console.error(`Container with ID "${containerId}" not found.`);
-        return;
-    }
+  if (!container) {
+    console.error(`Container with ID "${containerId}" not found.`);
+    return;
+  }
 
-    container.style.position = "relative";
-    const placedMessages = [];
+  container.style.position = "relative";
 
-    onValue(messagesRef, (snapshot) => {
-        const messages = snapshot.val();
-        container.innerHTML = ""; 
-        placedMessages.length = 0;
+  const displayedMessages = {};
 
-        if (messages) {
-            Object.entries(messages).forEach(([id, message]) => { 
-                const messageElement = createMessageElement(id, message, container, placedMessages);
-                container.appendChild(messageElement);
-            });
-        } else {
-            container.innerHTML = "<p>No messages available.</p>";
+  onValue(messagesRef, (snapshot) => {
+    const messages = snapshot.val();
+
+    Object.keys(displayedMessages).forEach((id) => {
+      if (!messages || !messages[id]) {
+        const messageElement = displayedMessages[id];
+        if (messageElement) {
+          container.removeChild(messageElement);
+          delete displayedMessages[id];
         }
+      }
     });
+
+    if (messages) {
+      Object.entries(messages).forEach(([id, message]) => {
+        if (!displayedMessages[id]) {
+          const messageElement = createMessageElement(
+            id,
+            message,
+            container,
+            displayedMessages
+          );
+          container.appendChild(messageElement);
+          displayedMessages[id] = messageElement;
+        }
+      });
+    }
+  });
 }
 
-function createMessageElement(id, message, container, placedMessages) {
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message");
-    messageDiv.setAttribute("data-id", id);
+function createMessageElement(id, message, container, displayedMessages) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message");
+  messageDiv.setAttribute("data-id", id);
 
-    const username = document.createElement("h4");
-    username.textContent = message._username;
+  const username = document.createElement("h4");
+  username.textContent = message._username;
 
-    const text = document.createElement("p");
-    text.textContent = message._message;
+  const text = document.createElement("p");
+  text.textContent = message._message;
 
-    const removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    removeButton.classList.add("removeButton");
+  const removeButton = document.createElement("button");
+  removeButton.textContent = "Remove";
+  removeButton.classList.add("removeButton");
 
-    const color = message._color;
-    messageDiv.style.borderColor = color;
-    messageDiv.append(username, text, removeButton);
-   
+  const color = message._color;
+  messageDiv.style.borderColor = color;
+  messageDiv.append(username, text, removeButton);
 
-    messageDiv.addEventListener("click", async () => {
-        console.log(id)
-        removeMessageById(id);
-    })
+  removeButton.addEventListener("click", async () => {
+    console.log(id);
+    await removeMessageById(id);
+  });
 
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
-    const messageWidth = 150;
-    const messageHeight = 100;
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
+  const messageWidth = 150;
+  const messageHeight = 100;
 
-    let randomX, randomY, isOverlapping;
+  let randomX, randomY, isOverlapping;
 
-    do {
-        randomX = Math.random() * (containerWidth - messageWidth);
-        randomY = Math.random() * (containerHeight - messageHeight);
+  do {
+    randomX = Math.floor(Math.random() * (containerWidth - messageWidth));
+    randomY = Math.floor(
+      Math.random() * (containerHeight - messageHeight)
+    );
 
-        isOverlapping = placedMessages.some(([x, y]) => {
-            return (
-                randomX < x + messageWidth &&
-                randomX + messageWidth > x &&
-                randomY < y + messageHeight &&
-                randomY + messageHeight > y
-            );
-        });
-    } while(isOverlapping)
+    isOverlapping = Object.values(displayedMessages).some((existingMessage) => {
+      const existingX = parseInt(existingMessage.style.left, 10);
+      const existingY = parseInt(existingMessage.style.top, 10);
 
-    placedMessages.push([randomX, randomY]);
+      return (
+        randomX < existingX + messageWidth &&
+        randomX + messageWidth > existingX &&
+        randomY < existingY + messageHeight &&
+        randomY + messageHeight > existingY
+      );
+    });
+  } while (isOverlapping);
 
-    messageDiv.style.position = "absolute";
-    messageDiv.style.left = `${randomX}px`;
-    messageDiv.style.top = `${randomY}px`;
+  messageDiv.style.position = "absolute";
+  messageDiv.style.left = `${randomX}px`;
+  messageDiv.style.top = `${randomY}px`;
 
-    return messageDiv;
+  return messageDiv;
 }
