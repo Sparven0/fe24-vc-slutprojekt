@@ -1,5 +1,5 @@
 import { Message } from "./Message";
-import { postMessage } from "./fetch";
+import { postMessage } from "./fetch.js";
 
 const messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit', async (event) => {
@@ -7,7 +7,7 @@ messageForm.addEventListener('submit', async (event) => {
     const formData = new FormData(messageForm);
     const username = formData.get('username');
     const message = formData.get('messageTxt');
-    const color = formData.get('color') || '#000000';
+    const color = createRandomColor();
 
     if(!username || !message) {
         console.error("Username and message are required");
@@ -26,3 +26,19 @@ messageForm.addEventListener('submit', async (event) => {
         console.error("Error posting message:", error);
     }
 });
+
+
+function createRandomColor() {
+    const timestamp = Date.now();
+    const red = timestamp % 256;
+    const green = (timestamp >> 8) % 256;
+    const blue = (timestamp >> 16) % 256;
+    const rgbColor = `rgb(${red}, ${green}, ${blue})`;
+    console.log(rgbColor);
+    return rgbColor;
+}
+
+
+
+
+
