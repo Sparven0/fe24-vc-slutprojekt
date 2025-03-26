@@ -55,6 +55,13 @@
 
 #messagesContainer {
     width: 100%;
+<<<<<<< HEAD
+}
+
+/* Alriks feature*/
+.shadowBanned {
+    display: none;
+=======
     overflow: scroll;
     height: 100%;
     position: relative;
@@ -77,4 +84,5 @@
 .removeButton:hover{
     background-color: red;
     color: white;
+>>>>>>> origin/main
 }
