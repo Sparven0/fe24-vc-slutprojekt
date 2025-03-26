@@ -20,3 +20,24 @@ body{
 .formDiv{
     color: white;
 }
+
+.message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.message h4 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.message p {
+    margin: 5px 0;
+}
+
+.message span {
+    font-size: 1.5em;
+    margin-left: 10px;
+}
