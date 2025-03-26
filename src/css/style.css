@@ -78,7 +78,6 @@ input[type="text"]{
 }
 
 .message h4 {
-<<<<<<< HEAD
     margin: 0;
     font-size: 1.2em;
     width: 100%;
@@ -87,16 +86,6 @@ input[type="text"]{
 .message p {
     margin: 5px 0;
     width: 100%;
-=======
-  margin: 0;
-  width: 100%;
-  font-size: 1.2em;
-}
-
-.message p {
-  margin: 5px 0;
-  width: 100%;
->>>>>>> origin/main
 }
 
 .message span {
@@ -125,14 +114,8 @@ input[type="text"]{
     background-color: transparent;
 }
 
-<<<<<<< HEAD
 .removeButton:hover{
    cursor: pointer;
-=======
-.removeButton:hover {
-  background-color: red;
-  color: white;
->>>>>>> origin/main
 }
 
 #fireworksContainer {
@@ -153,6 +136,7 @@ input[type="text"]{
 
 .contentContainer {
   display: flex;
+  width: 100%;
   flex-direction: column;
 }
 

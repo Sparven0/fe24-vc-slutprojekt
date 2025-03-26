@@ -58,10 +58,9 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   const text = document.createElement("p");
   text.textContent = message._message;
-  contentContainer.appendChild(username);
-  contentContainer.appendChild(text);
+  contentContainer.append(username, text);
   const removeButton = document.createElement("button");
-  removeButton.textContent = '❌';
+  removeButton.textContent = "❌";
   removeButton.classList.add("removeButton");
 
   const color = message._color;
@@ -85,13 +84,12 @@ function createMessageElement(id, message, container, displayedMessages) {
         }, 1000);
       }, delay);
     });
+  });
 
-    
-    
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
-    const messageWidth = 150;
-    const messageHeight = 100;
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
+  const messageWidth = 150;
+  const messageHeight = 100;
 
   let randomX, randomY, isOverlapping;
 
