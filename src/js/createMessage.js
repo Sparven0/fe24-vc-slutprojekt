@@ -8,12 +8,13 @@ messageForm.addEventListener('submit', async (event) => {
     const username = formData.get('username');
     const message = formData.get('messageTxt');
     const color = createRandomColor();
+    const shadowBanned = formData.get('shadowBanned'); //alriks test input för att man kan sätt shadowBanned
 
     if(!username || !message) {
         console.error("Username and message are required");
         return;
     }
-    const messageObj = new Message(username, message, color);
+    const messageObj = new Message(username, message, color, shadowBanned);
 
     try {
         const response = await postMessage(messageObj);
