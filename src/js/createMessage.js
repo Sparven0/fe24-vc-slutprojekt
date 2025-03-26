@@ -8,6 +8,8 @@ messageForm.addEventListener('submit', async (event) => {
     const username = formData.get('username');
     const message = formData.get('messageTxt');
     const color = createRandomColor();
+ 
+
 
     if(!username || !message) {
         console.error("Username and message are required");
@@ -57,6 +59,9 @@ function createRandomColor() {
     difference += 100;
     return rgbColor;
 }
+
+
+
 
 
 
