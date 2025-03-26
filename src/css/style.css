@@ -46,6 +46,7 @@
 
 .message p {
     margin: 5px 0;
+    width: 100%;
 }
 
 .message span {
@@ -56,4 +57,16 @@
 #messagesContainer {
     width: 100%;
     overflow: scroll;
+}
+
+.removeButton{
+    border-radius: 10rem;
+    aspect-ratio: 1/1;
+    border:none;
+    padding: 1px;
+}
+
+.removeButton:hover{
+    background-color: red;
+    color: white;
 }

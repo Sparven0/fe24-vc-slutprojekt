@@ -1,5 +1,6 @@
 import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
+import { removeMessageById } from "./fetch";
 
 export function displayMessages(containerId) {
     const messagesRef = ref(database, 'messages'); 
@@ -36,13 +37,19 @@ function createMessageElement(id, message) {
     const text = document.createElement("p");
     text.textContent = message._message;
 
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.classList.add("removeButton");
+
     const color = message._color;
     messageDiv.style.borderColor = color;
-    
- 
+    messageDiv.append(username, text, removeButton);
+   
 
-    messageDiv.appendChild(username);
-    messageDiv.appendChild(text);
+    messageDiv.addEventListener("click", async () => {
+        console.log(id)
+        removeMessageById(id);
+    })
 
     return messageDiv;
 }
