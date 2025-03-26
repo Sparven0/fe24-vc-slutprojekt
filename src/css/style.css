@@ -12,13 +12,47 @@
 
 .leftBar{
     width: 20%;
-    background-color: #a2a2a2;
+    background: rgb(203,200,255);
+background: linear-gradient(0deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 47%, rgba(0,212,255,1) 100%);
     padding: 10px;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
+
+input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#messageTxt{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#messageForm button{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #4346fd;
+    color: white;
+    font-weight: bold;
+}
+
+#messageForm button:hover{
+    background-color: #6b6eff;
+    color: white;
+    cursor: pointer
+}
 .formDiv{
     color: white;
     display: flex;
@@ -42,10 +76,12 @@
 .message h4 {
     margin: 0;
     font-size: 1.2em;
+    width: 100%;
 }
 
 .message p {
     margin: 5px 0;
+    width: 100%;
 }
 
 .message span {
@@ -60,6 +96,7 @@
     position: relative;
     overflow: hidden;
     background-color: #f9f9f9;
+    padding-left: 2%;
 }
 
 /* Alriks feature*/
@@ -68,15 +105,13 @@
 }
 
 .removeButton{
-    border-radius: 10rem;
-    aspect-ratio: 1/1;
+   
     border:none;
-    padding: 1px;
+    background-color: transparent;
 }
 
 .removeButton:hover{
-    background-color: red;
-    color: white;
+   cursor: pointer;
 }
 
 

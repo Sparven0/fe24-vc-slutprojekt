@@ -57,7 +57,7 @@ function createMessageElement(id, message, container, displayedMessages) {
   text.textContent = message._message;
 
   const removeButton = document.createElement("button");
-  removeButton.textContent = "Remove";
+  removeButton.textContent = '❌';
   removeButton.classList.add("removeButton");
 
     const color = message._color;
@@ -65,7 +65,7 @@ function createMessageElement(id, message, container, displayedMessages) {
     messageDiv.append(username, text, removeButton);
    
 
-    messageDiv.addEventListener("click", async () => {
+    removeButton.addEventListener("click", async () => {
         const allmessages = document.querySelectorAll(".message");
         console.log(id);
         removeMessageById(id);
