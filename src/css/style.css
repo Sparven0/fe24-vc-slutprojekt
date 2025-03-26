@@ -37,6 +37,7 @@
   flex-wrap: wrap;
   background-color: white;
   position: absolute;
+  z-index: index;
 }
 
 .message h4 {
