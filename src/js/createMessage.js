@@ -1,5 +1,7 @@
 import { Message } from "./Message.js";
 import { postMessage } from "./fetch.js";
+import { Fireworks } from 'fireworks-js'
+
 
 const messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit', async (event) => {
@@ -13,7 +15,8 @@ messageForm.addEventListener('submit', async (event) => {
  
 
 
-    if(!username || !message) {
+
+    if (!username || !message) {
         console.error("Username and message are required");
         return;
     }
@@ -21,12 +24,61 @@ messageForm.addEventListener('submit', async (event) => {
 
     try {
         const response = await postMessage(messageObj);
-        if(response.success) {
+        if (response.success) {
             console.log("Message posted successfully:", response.id);
+            const container = document.getElementById('messagesContainer');
+            const fireworksContainer = document.createElement("div");
+            fireworksContainer.id = "fireworksContainer";
+            fireworksContainer.style.position = "absolute";
+            fireworksContainer.style.top = "0";
+            fireworksContainer.style.left = "0";
+            fireworksContainer.style.width = "100%";
+            fireworksContainer.style.height = "100%";
+            fireworksContainer.style.pointerEvents = "none";
+            fireworksContainer.style.zIndex = "9999";
+            container.appendChild(fireworksContainer);
+
+
+            const fireworks = new Fireworks(fireworksContainer, {
+                autoresize: true,
+                opacity: 0.5,
+                acceleration: 1.05,
+                friction: 0.98,
+                gravity: 1.5,
+                particles: 150, // Increase the number of particles for bigger explosions
+                trace: 3, // Increase the trace for a more dramatic effect
+                explosion: 10, // Increase the explosion size
+                intensity: 50, // Increase intensity for more particles per explosion
+                flickering: 50,
+                lineWidth: {
+                    trace: 2,
+                    explosion: 4, // Thicker explosion lines
+                },
+                brightness: {
+                    min: 50,
+                    max: 80,
+                    decay: {
+                        min: 0.015,
+                        max: 0.03,
+                    },
+                },
+                hue: {
+                    min: 0,
+                    max: 360,
+                },
+                delay: {
+                    min: 30,
+                    max: 60,
+                },
+            });
+            fireworks.start();
+
+            setTimeout(() => fireworks.stop(), 5000);
+
         } else {
             console.error("Failed to post message:", response.error);
         }
-    } catch(error) {
+    } catch (error) {
         console.error("Error posting message:", error);
     }
 });
@@ -46,7 +98,7 @@ function createRandomColor() {
     red = Math.max(red, MIN_COLOR_VALUE);
     green = Math.max(green, MIN_COLOR_VALUE);
     blue = Math.max(blue, MIN_COLOR_VALUE);
-    const MIN_DIFF = 50; 
+    const MIN_DIFF = 50;
     if (Math.abs(red - green) < MIN_DIFF) {
         green = (green + 100) % 256;
     }

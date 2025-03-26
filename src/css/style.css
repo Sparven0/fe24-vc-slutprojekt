@@ -67,6 +67,20 @@
   display: none;
 }
 
+.removeButton:hover{
+    background-color: red;
+    color: white;
+}
+
+#fireworksContainer {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 80%;
+    height: 100%;
+    z-index: 99999999999999;
+    
+}
 .removeButton {
   border-radius: 10rem;
   aspect-ratio: 1/1;
@@ -74,10 +88,6 @@
   padding: 1px;
 }
 
-.removeButton:hover {
-  background-color: red;
-  color: white;
-}
 
 @keyframes shake {
   0% {
