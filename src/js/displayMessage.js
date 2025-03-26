@@ -38,6 +38,7 @@ function createMessageElement(id, message) {
 
     const color = message._color;
     messageDiv.style.borderColor = color;
+    
  
 
     messageDiv.appendChild(username);
