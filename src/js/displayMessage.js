@@ -93,22 +93,36 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   let randomX, randomY, isOverlapping;
 
+  container.appendChild(messageDiv);
+  const actualMessageWidth = messageDiv.offsetWidth;
+  const actualMessageHeight = messageDiv.offsetHeight;
+  container.removeChild(messageDiv);
+
   do {
-    randomX = Math.floor(Math.random() * (containerWidth - messageWidth));
-    randomY = Math.floor(Math.random() * (containerHeight - messageHeight));
+    randomX = Math.floor(Math.random() * (containerWidth - actualMessageWidth));
+    randomY = Math.floor(
+      Math.random() * (containerHeight - actualMessageHeight)
+    );
 
     isOverlapping = Object.values(displayedMessages).some((existingMessage) => {
       const existingX = parseInt(existingMessage.style.left, 10);
       const existingY = parseInt(existingMessage.style.top, 10);
 
       return (
-        randomX < existingX + messageWidth &&
-        randomX + messageWidth > existingX &&
-        randomY < existingY + messageHeight &&
-        randomY + messageHeight > existingY
+        randomX < existingX + existingMessage.offsetWidth &&
+        randomX + actualMessageWidth > existingX &&
+        randomY < existingY + existingMessage.offsetHeight &&
+        randomY + actualMessageHeight > existingY
       );
     });
   } while (isOverlapping);
+
+  if (randomX + actualMessageWidth > containerWidth) {
+    randomX = containerWidth - actualMessageWidth;
+  }
+  if (randomY + actualMessageHeight > containerHeight) {
+    randomY = containerHeight - actualMessageHeight;
+  }
 
   messageDiv.style.position = "absolute";
   messageDiv.style.left = `${randomX}px`;
