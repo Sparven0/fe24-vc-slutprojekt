@@ -11,13 +11,17 @@ export function displayMessages(containerId) {
         return;
     }
 
+    container.style.position = "relative";
+    const placedMessages = [];
+
     onValue(messagesRef, (snapshot) => {
         const messages = snapshot.val();
         container.innerHTML = ""; 
+        placedMessages.length = 0;
 
         if (messages) {
             Object.entries(messages).forEach(([id, message]) => { 
-                const messageElement = createMessageElement(id, message);
+                const messageElement = createMessageElement(id, message, container, placedMessages);
                 container.appendChild(messageElement);
             });
         } else {
@@ -26,7 +30,7 @@ export function displayMessages(containerId) {
     });
 }
 
-function createMessageElement(id, message) {
+function createMessageElement(id, message, container, placedMessages) {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message");
     messageDiv.setAttribute("data-id", id);
@@ -50,6 +54,33 @@ function createMessageElement(id, message) {
         console.log(id)
         removeMessageById(id);
     })
+
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+    const messageWidth = 150;
+    const messageHeight = 100;
+
+    let randomX, randomY, isOverlapping;
+
+    do {
+        randomX = Math.random() * (containerWidth - messageWidth);
+        randomY = Math.random() * (containerHeight - messageHeight);
+
+        isOverlapping = placedMessages.some(([x, y]) => {
+            return (
+                randomX < x + messageWidth &&
+                randomX + messageWidth > x &&
+                randomY < y + messageHeight &&
+                randomY + messageHeight > y
+            );
+        });
+    } while(isOverlapping)
+
+    placedMessages.push([randomX, randomY]);
+
+    messageDiv.style.position = "absolute";
+    messageDiv.style.left = `${randomX}px`;
+    messageDiv.style.top = `${randomY}px`;
 
     return messageDiv;
 }
