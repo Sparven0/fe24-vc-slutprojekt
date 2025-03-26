@@ -51,15 +51,16 @@ function createMessageElement(id, message, container, placedMessages) {
    
 
     messageDiv.addEventListener("click", async () => {
-        console.log(id)
+        console.log(id);
         removeMessageById(id);
-       const allmessages = document.querySelectorAll(".message");
-       allmessages.forEach((message)=>{
-        message.classList.add('shake')
-       })
-        
-        
-    })
+        const allmessages = document.querySelectorAll(".message");
+        allmessages.forEach((message) => {
+            const delay = Math.random() * 500; // Random delay in milliseconds
+            setTimeout(() => {
+                message.classList.add('shake');
+            }, delay);
+        });
+    });
 
     
     
