@@ -73,9 +73,12 @@ function createMessageElement(id, message, container, displayedMessages) {
     removeMessageById(id);
     const allmessages = document.querySelectorAll(".message");
     allmessages.forEach((message) => {
-      const delay = Math.random() * 500; // Random delay in milliseconds
+      const delay = Math.random() * 500;
       setTimeout(() => {
         message.classList.add("shake");
+          setTimeout(() => {
+          message.classList.remove("shake");
+        }, 1000); 
       }, delay);
     });
   });
