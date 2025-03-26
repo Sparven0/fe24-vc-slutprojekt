@@ -53,8 +53,16 @@ function createMessageElement(id, message, container, placedMessages) {
     messageDiv.addEventListener("click", async () => {
         console.log(id)
         removeMessageById(id);
+       const allmessages = document.querySelectorAll(".message");
+       allmessages.forEach((message)=>{
+        message.classList.add('shake')
+       })
+        
+        
     })
 
+    
+    
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
     const messageWidth = 150;
