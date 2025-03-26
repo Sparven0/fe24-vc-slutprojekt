@@ -15,11 +15,10 @@ export async function postMessage(Message){
 
 export async function removeMessageById(id) {
     try {
-        const messageRef = ref(database, 'messages/' + id);
+        const messageRef = ref(database, `messages/${id}`);
         await set(messageRef, null);
-        return { success: true, message: "Message removed successfully" };
+        console.log(`Message with ID: ${id} removed successfully.`);
     } catch (error) {
-        console.error("Error removing message:", error);
-        return { success: false, message: "Error removing message" };
+        console.error(`Error removing message with ID: ${id}`, error);
     }
 }

@@ -42,12 +42,10 @@
 .message h4 {
     margin: 0;
     font-size: 1.2em;
-    width: 100%;
 }
 
 .message p {
     margin: 5px 0;
-    width: 100%;
 }
 
 .message span {
@@ -62,6 +60,11 @@
     position: relative;
     overflow: hidden;
     background-color: #f9f9f9;
+}
+
+/* Alriks feature*/
+.shadowBanned {
+    display: none;
 }
 
 .removeButton{
