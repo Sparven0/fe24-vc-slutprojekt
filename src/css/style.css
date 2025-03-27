@@ -195,13 +195,13 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Dark Mode */
+
 body.dark-mode {
-  background-color: #121212; /* Mörk bakgrund */
-  color: #ffffff; /* Vit text */
+  background-color: #121212; 
+  color: #ffffff; 
 }
 
-/* Styla knappen */
+
 #dark-mode-toggle {
   position: fixed;
   top: 10px;
@@ -220,4 +220,32 @@ body.dark-mode {
 body.dark-mode #dark-mode-toggle {
   background-color: #fff;
   color: #000;
+}
+
+
+body.dark-mode .message {
+  background-color: #333;
+  color: white;
+}
+
+
+body.dark-mode input[type="text"],
+body.dark-mode #messageTxt {
+  background-color: #444;
+  color: white;
+  border: 1px solid #666;
+}
+
+
+body.dark-mode #messageForm button {
+  background-color: #555;
+}
+
+body.dark-mode #messageForm button:hover {
+  background-color: #6b6eff;
+}
+
+
+body.dark-mode #messagesContainer {
+  background-color: #222;
 }
