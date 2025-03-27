@@ -1,9 +1,11 @@
 import { displayMessages } from "./js/displayMessage.js";
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const toggleButton = document.getElementById("dark-mode-toggle");
     const body = document.body;
 
-    // Kollar om användaren har valt Dark Mode tidigare
+   
     if (localStorage.getItem("darkMode") === "enabled") {
         body.classList.add("dark-mode");
         toggleButton.textContent = "Light Mode ☀️";
