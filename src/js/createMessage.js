@@ -84,14 +84,12 @@ let difference = 0;
 const MIN_COLOR_VALUE = 100;
 
 function createRandomColor() {
-    const timestamp = Date.now();
+    const getRandomValue = () => Math.floor(Math.random() * 156) + 100; // Ensures values between 100 and 255 for vibrant colors
 
-    let red = (timestamp + difference) % 256;
-    let green = ((timestamp + difference) >> 8) % 256;
-    let blue = ((timestamp + difference) >> 16) % 256;
-    red = Math.max(red, MIN_COLOR_VALUE);
-    green = Math.max(green, MIN_COLOR_VALUE);
-    blue = Math.max(blue, MIN_COLOR_VALUE);
+    let red = getRandomValue();
+    let green = getRandomValue();
+    let blue = getRandomValue();
+
     const MIN_DIFF = 50;
     if (Math.abs(red - green) < MIN_DIFF) {
         green = (green + 100) % 256;
@@ -106,6 +104,5 @@ function createRandomColor() {
     const rgbColor = `rgb(${red}, ${green}, ${blue})`;
     console.log(rgbColor);
 
-    difference += 100;
     return rgbColor;
 }
