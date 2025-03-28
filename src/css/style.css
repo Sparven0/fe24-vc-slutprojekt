@@ -247,3 +247,65 @@ input[type="text"]:focus,
 .shake {
   animation: shake 1s;
 }
+/* Standard ljusläge (Light Mode) */
+body {
+  background-color: white;
+  color: black;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+body.dark-mode {
+  background-color: #121212; 
+  color: #ffffff; 
+}
+
+
+#dark-mode-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #000;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Ändra knappens stil i Dark Mode */
+body.dark-mode #dark-mode-toggle {
+  background-color: #fff;
+  color: #000;
+}
+
+
+body.dark-mode .message {
+  background-color: #333;
+  color: white;
+}
+
+
+body.dark-mode input[type="text"],
+body.dark-mode #messageTxt {
+  background-color: #444;
+  color: white;
+  border: 1px solid #666;
+}
+
+
+body.dark-mode #messageForm button {
+  background-color: #555;
+}
+
+body.dark-mode #messageForm button:hover {
+  background-color: #6b6eff;
+}
+
+
+body.dark-mode #messagesContainer {
+  background-color: #222;
+}

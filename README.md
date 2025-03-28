@@ -1,1 +1,1 @@
-# fe-24-vc-slutprojekt
+# fe24-versionshantering-gritsquare-grupp2

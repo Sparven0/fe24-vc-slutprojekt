@@ -1,7 +1,7 @@
 import { Message } from "./Message.js";
 import { postMessage } from "./fetch.js";
-import { Fireworks } from 'fireworks-js'
-
+import { Fireworks } from 'fireworks-js';
+import { profanityCheckAndPost } from "./fetch.js";
 
 const messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit', async (event) => {
@@ -12,16 +12,19 @@ messageForm.addEventListener('submit', async (event) => {
     const color = createRandomColor();
     const shadowBanned = formData.get('shadowBanned'); //alriks test input för att man kan sätt shadowBanned
 
- 
-
-
-
     if (!username || !message) {
         console.error("Username and message are required");
         return;
     }
     const messageObj = new Message(username, message, color, shadowBanned);
-
+    
+    const msgProf = await profanityCheckAndPost(message);
+    if(msgProf.isProfanity == true) {
+        console.error("Message contains profanity");
+        alert("Message contains profanity");
+        return;
+    }
+   
     try {
         const response = await postMessage(messageObj);
         if (response.success) {
@@ -38,25 +41,27 @@ messageForm.addEventListener('submit', async (event) => {
             fireworksContainer.style.zIndex = "9999";
             container.appendChild(fireworksContainer);
 
+            // Kontrollera om Dark Mode är aktivt
+            const isDarkMode = document.body.classList.contains("dark-mode");
 
             const fireworks = new Fireworks(fireworksContainer, {
                 autoresize: true,
-                opacity: 0.5,
+                opacity: isDarkMode ? 0.8 : 0.5,  // Mer synliga i dark mode
                 acceleration: 1.05,
                 friction: 0.98,
                 gravity: 1.5,
-                particles: 150, 
-                trace: 3, 
-                explosion: 10, 
-                intensity: 50, 
+                particles: isDarkMode ? 200 : 150,  // Fler partiklar i dark mode
+                trace: isDarkMode ? 5 : 3,
+                explosion: isDarkMode ? 15 : 10,
+                intensity: isDarkMode ? 80 : 50,
                 flickering: 50,
                 lineWidth: {
-                    trace: 2,
-                    explosion: 4, 
+                    trace: isDarkMode ? 3 : 2,
+                    explosion: isDarkMode ? 5 : 4, 
                 },
                 brightness: {
-                    min: 50,
-                    max: 80,
+                    min: isDarkMode ? 70 : 50,
+                    max: isDarkMode ? 100 : 80,
                     decay: {
                         min: 0.015,
                         max: 0.03,
@@ -71,8 +76,8 @@ messageForm.addEventListener('submit', async (event) => {
                     max: 60,
                 },
             });
-            fireworks.start();
 
+            fireworks.start();
             setTimeout(() => fireworks.stop(), 5000);
 
         } else {
@@ -84,20 +89,13 @@ messageForm.addEventListener('submit', async (event) => {
 });
 
 
-
-
-let difference = 0;
-const MIN_COLOR_VALUE = 100;
-
 function createRandomColor() {
-    const timestamp = Date.now();
+    const getRandomValue = () => Math.floor(Math.random() * 156) + 100; // Ensures values between 100 and 255 for vibrant colors
 
-    let red = (timestamp + difference) % 256;
-    let green = ((timestamp + difference) >> 8) % 256;
-    let blue = ((timestamp + difference) >> 16) % 256;
-    red = Math.max(red, MIN_COLOR_VALUE);
-    green = Math.max(green, MIN_COLOR_VALUE);
-    blue = Math.max(blue, MIN_COLOR_VALUE);
+    let red = getRandomValue();
+    let green = getRandomValue();
+    let blue = getRandomValue();
+
     const MIN_DIFF = 50;
     if (Math.abs(red - green) < MIN_DIFF) {
         green = (green + 100) % 256;
@@ -112,12 +110,5 @@ function createRandomColor() {
     const rgbColor = `rgb(${red}, ${green}, ${blue})`;
     console.log(rgbColor);
 
-    difference += 100;
     return rgbColor;
 }
-
-
-
-
-
-
