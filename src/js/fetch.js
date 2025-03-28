@@ -13,6 +13,36 @@ export async function postMessage(Message){
 }
 
 
+export async function profanityCheckAndPost(message) {
+    try {
+        const res = await fetch('https://vector.profanity.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message }),
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        console.log(data)
+       if(data.isProfanity == true){
+        return {isProfanity: true};
+       }
+       else{
+        return {isProfanity: false};
+       }
+       
+    } catch (error) {
+        console.error("Error checking profanity:", error);
+        return false; 
+    }
+}
+
+
+
+
 export async function removeMessageById(id) {
     try {
         const messageRef = ref(database, `messages/${id}`);

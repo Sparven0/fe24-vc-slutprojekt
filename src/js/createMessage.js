@@ -1,6 +1,7 @@
 import { Message } from "./Message.js";
 import { postMessage } from "./fetch.js";
-import { Fireworks } from 'fireworks-js'
+import { Fireworks } from 'fireworks-js';
+import { profanityCheckAndPost } from "./fetch.js";
 
 const messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit', async (event) => {
@@ -16,7 +17,14 @@ messageForm.addEventListener('submit', async (event) => {
         return;
     }
     const messageObj = new Message(username, message, color, shadowBanned);
-
+    
+    const msgProf = await profanityCheckAndPost(message);
+    if(msgProf.isProfanity == true) {
+        console.error("Message contains profanity");
+        alert("Message contains profanity");
+        return;
+    }
+   
     try {
         const response = await postMessage(messageObj);
         if (response.success) {
@@ -80,8 +88,6 @@ messageForm.addEventListener('submit', async (event) => {
     }
 });
 
-let difference = 0;
-const MIN_COLOR_VALUE = 100;
 
 function createRandomColor() {
     const getRandomValue = () => Math.floor(Math.random() * 156) + 100; // Ensures values between 100 and 255 for vibrant colors
