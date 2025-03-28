@@ -159,6 +159,8 @@ input[type="text"]:focus,
   border: #6b6eff 2px solid;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 110px;
+  position: fixed;
+  top: 280px;
 }
 
 .sideMenu ul {
@@ -186,6 +188,22 @@ input[type="text"]:focus,
 
 .sideMenu a:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(0deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 27%, rgba(0,212,255,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 4em; /* Justera efter behov */
+  font-weight: bold;
+}
+
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  width: 100%;
 }
 
 
