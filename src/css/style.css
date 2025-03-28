@@ -149,13 +149,16 @@ input[type="text"]:focus,
 
 .sideMenu {
   background: linear-gradient(0deg, rgba(203,200,255,1) 50%, rgba(0,212,255,1) 100%);
-  padding: 20px;
+  padding: 10px;
   height: 32vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
   border-radius: 10px;
+  border: #6b6eff 2px solid;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 110px;
 }
 
 .sideMenu ul {
