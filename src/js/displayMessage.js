@@ -72,18 +72,8 @@ function createMessageElement(id, message, container, displayedMessages) {
   messageDiv.append(contentContainer, removeButton);
 
   removeButton.addEventListener("click", async () => {
-    console.log(id);
     removeMessageById(id);
-    const allmessages = document.querySelectorAll(".message");
-    allmessages.forEach((message) => {
-      const delay = Math.random() * 500;
-      setTimeout(() => {
-        message.classList.add("shake");
-        setTimeout(() => {
-          message.classList.remove("shake");
-        }, 1000);
-      }, delay);
-    });
+
   });
 
   const containerWidth = container.offsetWidth;
