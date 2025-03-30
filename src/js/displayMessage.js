@@ -1,6 +1,7 @@
 import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
 import { removeMessageById } from "./fetch";
+import { shuffleMessages } from "./shuffleMessages";
 
 export function displayMessages(containerId) {
   const messagesRef = ref(database, "messages");
@@ -130,3 +131,6 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   return messageDiv;
 }
+
+const shuffleButton = document.getElementById("shuffleButton");
+shuffleButton.addEventListener("click", shuffleMessages);
