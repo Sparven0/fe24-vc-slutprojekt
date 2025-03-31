@@ -1,0 +1,28 @@
+.pinButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.6rem;
+    color: #333;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+
+  .message.pinned {
+    background-color: #fff8dc; /* Light yellow */
+    box-shadow: 0 0 12px gold; /* Glowing border */
+    z-index: 999;
+    border: 2px solid gold;
+  }
+
+  .pinLabel {
+    display: inline-block;
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 0.75rem;
+  }
