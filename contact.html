@@ -7,8 +7,7 @@
     <link rel="shortcut icon" href="./src/assets/grit_academy_logo-removebg-preview.ico" type="image/ico" />
     <link rel="stylesheet" href="./src/css/style.css" />
 
-    <script type="module" src="./src/main.js"></script>
-    <script type="module" src="./src/js/createMessage.js"></script>
+    <script src="./src/js/contactFormHandler.js"></script>
 
     <title>Firebase Slutprojekt VC</title>
 </head>
@@ -26,9 +25,26 @@
                 </nav>
             </div>
         </div>
-        <div class="Header">
-            <h1 class="gradient-text">Contact</h1>
+        <div class="contactContainer">
+            <div class="Header">
+                <h1 class="gradient-text">Contact</h1>
+            </div>
+            <p id="confirmationMessage" style="display: none; color: green; font-weight: bold; margin-top: 10px;">Thank you for your message! We will get back to you soon.</p>
+
+            <form id="contactForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required />
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required />
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
         </div>
+        
     </div>
 </body>
 
