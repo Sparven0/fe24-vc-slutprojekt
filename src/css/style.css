@@ -364,3 +364,74 @@ body.dark-mode #messageForm button:hover {
 body.dark-mode #messagesContainer {
   background-color: #222;
 }
+
+@media (max-width: 768px) {
+  .mainContainer {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  .leftBar {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .sideMenu {
+    position: static;
+    width: 100%;
+    margin: 0;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .sideMenu ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .sideMenu li {
+    margin: 10px;
+  }
+
+  .contactContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #messagesContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    background-color: #f9f9f9;
+    padding: 10px;
+  }
+
+  .message {
+    max-width: 90%;
+    margin: 10px auto;
+  }
+
+  #contactForm {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  #dark-mode-toggle,
+  #shuffleButton {
+
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .gradient-text{
+    font-size: 2em;
+  }
+
+  .Header {
+    height: auto;
+    padding: 10px;
+  }
+}

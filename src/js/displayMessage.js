@@ -66,6 +66,7 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   const color = message._color;
   messageDiv.style.borderColor = color;
+
   const shadowBanned = message._shadowBanned;
   if (shadowBanned) {
     messageDiv.classList.add("shadowBanned");
@@ -89,8 +90,6 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
-  const messageWidth = 150;
-  const messageHeight = 100;
 
   let randomX, randomY, isOverlapping;
 
@@ -98,6 +97,9 @@ function createMessageElement(id, message, container, displayedMessages) {
   const actualMessageWidth = messageDiv.offsetWidth;
   const actualMessageHeight = messageDiv.offsetHeight;
   container.removeChild(messageDiv);
+
+  let attempts = 0; // Add a counter to limit iterations
+  const maxAttempts = 100; // Set a maximum number of attempts
 
   do {
     randomX = Math.floor(Math.random() * (containerWidth - actualMessageWidth));
@@ -116,7 +118,13 @@ function createMessageElement(id, message, container, displayedMessages) {
         randomY + actualMessageHeight > existingY
       );
     });
-  } while (isOverlapping);
+
+    attempts++;
+  } while (isOverlapping && attempts < maxAttempts);
+
+  if (attempts >= maxAttempts) {
+    console.warn("Could not find a non-overlapping position for the message.");
+  }
 
   if (randomX + actualMessageWidth > containerWidth) {
     randomX = containerWidth - actualMessageWidth;
