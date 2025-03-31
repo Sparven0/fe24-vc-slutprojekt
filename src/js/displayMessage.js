@@ -58,6 +58,9 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   if (message.pinned) {
     messageDiv.classList.add("pinned");
+    messageDiv.style.zIndex = "1000"; // Visually on top
+  } else {
+    messageDiv.style.zIndex = "1";
   }
 
   const contentContainer = document.createElement("div");
@@ -82,28 +85,25 @@ function createMessageElement(id, message, container, displayedMessages) {
   // 🔁 Toggle pin state in Firebase + UI
   pinButton.addEventListener("click", async () => {
     const newPinned = !message.pinned;
-    let updates = { pinned: newPinned };
+    const x = parseInt(messageDiv.style.left, 10);
+    const y = parseInt(messageDiv.style.top, 10);
 
-    if (newPinned) {
-      const x = parseInt(messageDiv.style.left, 10);
-      const y = parseInt(messageDiv.style.top, 10);
-      updates.x = x;
-      updates.y = y;
-    } else {
-      updates.x = null;
-      updates.y = null;
-    }
+    let updates = {
+      pinned: newPinned,
+      x: newPinned ? x : null,
+      y: newPinned ? y : null,
+    };
 
     await update(ref(database, `messages/${id}`), updates);
 
     message.pinned = newPinned;
     pinButton.textContent = "📌";
     messageDiv.classList.toggle("pinned", newPinned);
+    messageDiv.style.zIndex = newPinned ? "1000" : "1";
   });
 
   const color = message._color;
   messageDiv.style.borderColor = color;
-
 
   if (message._shadowBanned) {
     messageDiv.classList.add("shadowBanned");
@@ -114,8 +114,8 @@ function createMessageElement(id, message, container, displayedMessages) {
   removeButton.addEventListener("click", async () => {
     console.log(id);
     removeMessageById(id);
-    const allmessages = document.querySelectorAll(".message");
-    allmessages.forEach((msg) => {
+    const allMessages = document.querySelectorAll(".message");
+    allMessages.forEach((msg) => {
       const delay = Math.random() * 500;
       setTimeout(() => {
         msg.classList.add("shake");
@@ -126,39 +126,39 @@ function createMessageElement(id, message, container, displayedMessages) {
     });
   });
 
-  // 📌 If pinned with saved position, place it exactly
-  if (message.pinned && typeof message.x === "number" && typeof message.y === "number") {
+  // 📌 If pinned with saved position, use it
+  if (
+    message.pinned &&
+    typeof message.x === "number" &&
+    typeof message.y === "number"
+  ) {
     messageDiv.style.position = "absolute";
     messageDiv.style.left = `${message.x}px`;
     messageDiv.style.top = `${message.y}px`;
     return messageDiv;
   }
 
-  // 🔀 Otherwise, random position (non-pinned)
+  // 🔀 Otherwise, random positioning (non-pinned only)
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
-  const messageWidth = 150;
-  const messageHeight = 100;
-
-  let randomX, randomY, isOverlapping;
 
   container.appendChild(messageDiv);
   const actualMessageWidth = messageDiv.offsetWidth;
   const actualMessageHeight = messageDiv.offsetHeight;
   container.removeChild(messageDiv);
 
-  let attempts = 0; // Add a counter to limit iterations
-  const maxAttempts = 100; // Set a maximum number of attempts
-
   let randomX, randomY, isOverlapping;
+  let attempts = 0;
+  const maxAttempts = 100;
+
   do {
     randomX = Math.floor(Math.random() * (containerWidth - actualMessageWidth));
     randomY = Math.floor(Math.random() * (containerHeight - actualMessageHeight));
 
     isOverlapping = Object.values(displayedMessages).some((existingMessage) => {
+      if (existingMessage.classList.contains("pinned")) return false; // Skip pinned for overlap
       const existingX = parseInt(existingMessage.style.left, 10);
       const existingY = parseInt(existingMessage.style.top, 10);
-
       return (
         randomX < existingX + existingMessage.offsetWidth &&
         randomX + actualMessageWidth > existingX &&
@@ -166,14 +166,9 @@ function createMessageElement(id, message, container, displayedMessages) {
         randomY + actualMessageHeight > existingY
       );
     });
-  } while (isOverlapping);
 
-  if (randomX + actualMessageWidth > containerWidth) {
-    randomX = containerWidth - actualMessageWidth;
-  }
-  if (randomY + actualMessageHeight > containerHeight) {
-    randomY = containerHeight - actualMessageHeight;
-  }
+    attempts++;
+  } while (isOverlapping && attempts < maxAttempts);
 
   messageDiv.style.position = "absolute";
   messageDiv.style.left = `${randomX}px`;
