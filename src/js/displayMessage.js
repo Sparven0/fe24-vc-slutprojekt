@@ -104,6 +104,7 @@ function createMessageElement(id, message, container, displayedMessages) {
   const color = message._color;
   messageDiv.style.borderColor = color;
 
+
   if (message._shadowBanned) {
     messageDiv.classList.add("shadowBanned");
   }
@@ -136,11 +137,18 @@ function createMessageElement(id, message, container, displayedMessages) {
   // 🔀 Otherwise, random position (non-pinned)
   const containerWidth = container.offsetWidth;
   const containerHeight = container.offsetHeight;
+  const messageWidth = 150;
+  const messageHeight = 100;
+
+  let randomX, randomY, isOverlapping;
 
   container.appendChild(messageDiv);
   const actualMessageWidth = messageDiv.offsetWidth;
   const actualMessageHeight = messageDiv.offsetHeight;
   container.removeChild(messageDiv);
+
+  let attempts = 0; // Add a counter to limit iterations
+  const maxAttempts = 100; // Set a maximum number of attempts
 
   let randomX, randomY, isOverlapping;
   do {
@@ -159,6 +167,13 @@ function createMessageElement(id, message, container, displayedMessages) {
       );
     });
   } while (isOverlapping);
+
+  if (randomX + actualMessageWidth > containerWidth) {
+    randomX = containerWidth - actualMessageWidth;
+  }
+  if (randomY + actualMessageHeight > containerHeight) {
+    randomY = containerHeight - actualMessageHeight;
+  }
 
   messageDiv.style.position = "absolute";
   messageDiv.style.left = `${randomX}px`;
