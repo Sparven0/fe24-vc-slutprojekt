@@ -115,6 +115,24 @@ function createMessageElement(id, message, container, displayedMessages) {
   pinButton.textContent = "📌";
   pinButton.classList.add("pinButton");
 
+  const likeButtonEl = document.createElement("button");
+  likeButtonEl.textContent = "👍";
+  likeButtonEl.id = "likeButton";
+
+  const dislikeButtonEl = document.createElement("button");
+  dislikeButtonEl.textContent = "👎";
+  dislikeButtonEl.id = "dislikeButton";
+
+  likeButtonEl.addEventListener("click", function () {
+    likeButtonEl.classList.toggle("liked");
+    dislikeButtonEl.classList.remove("disliked");
+  });
+
+  dislikeButtonEl.addEventListener("click", function () {
+    dislikeButtonEl.classList.toggle("disliked");
+    likeButtonEl.classList.remove("liked");
+  });
+
   // 🔁 Toggle pin state in Firebase + UI
   pinButton.addEventListener("click", async () => {
     const newPinned = !message.pinned;
@@ -142,20 +160,14 @@ function createMessageElement(id, message, container, displayedMessages) {
     messageDiv.classList.add("shadowBanned");
   }
 
-  let likeButton = document.getElementById("likeButton");
-  let dislikeButton = document.getElementById("dislikeButton");
 
-  likeButton.addEventListener("click", function() {
-    likeButton.classList.toggle("liked");
-    dislikeButton.classList.remove("disliked");
-  });
-
-  dislikeButton.addEventListener("click", function() {
-    dislikeButton.classList.toggle("disliked");
-    likeButton.classList.remove("liked");
-  });
-
-  messageDiv.append(contentContainer, removeButton, pinButton, likeButton, dislikeButton);
+  messageDiv.append(
+    contentContainer,
+    removeButton,
+    pinButton,
+    likeButtonEl,
+    dislikeButtonEl
+  );
 
   removeButton.addEventListener("click", async () => {
     console.log(id);
