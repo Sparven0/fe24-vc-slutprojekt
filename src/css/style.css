@@ -1,5 +1,6 @@
 @import url(shuffle-button-Leon.css);
 @import url(pin.css);
+@import url(search.css);
 
 * {
   box-sizing: border-box;
@@ -47,7 +48,7 @@ input[type="text"]:focus,
     border: 1px solid #ccc;
 }
 
-#messageForm button{
+#messageForm button, #userForm button{
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -58,7 +59,7 @@ input[type="text"]:focus,
     font-weight: bold;
 }
 
-#messageForm button:hover{
+#messageForm button:hover, #userForm button:hover{
     background-color: #6b6eff;
     color: white;
     cursor: pointer
@@ -101,6 +102,23 @@ input[type="text"]:focus,
 .message span {
   font-size: 1.5em;
   margin-left: 10px;
+}
+
+.like {
+  background-color: #4CAF50; /* Grön för "like" */
+  color: white;
+}
+.dislike {
+  background-color: #f44336; /* Röd för "dislike" */
+  color: white;
+}
+
+.liked {
+  background-color: #45a049; /* Ljusgrön när gillat */
+}
+
+.disliked {
+  background-color: #d32f2f; /* Ljusröd när ogillat */
 }
 
 #messagesContainer {
@@ -162,7 +180,6 @@ input[type="text"]:focus,
   border: #6b6eff 2px solid;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 110px;
-  position: fixed;
   top: 280px;
 }
 
