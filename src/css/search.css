@@ -16,6 +16,8 @@
     font-size: 16px;
     outline: none;
     color: white;
+    margin-right: 10px !important;
+    border: none !important;
   }
   
   .search-input::placeholder {
@@ -25,6 +27,7 @@
   .search-icon {
     margin-right: 10px;
     font-size: 18px;
+    margin-left: 10px;
   }
   
   .search-status {
