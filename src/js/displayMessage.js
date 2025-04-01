@@ -142,7 +142,20 @@ function createMessageElement(id, message, container, displayedMessages) {
     messageDiv.classList.add("shadowBanned");
   }
 
-  messageDiv.append(contentContainer, removeButton, pinButton);
+  let likeButton = document.getElementById("likeButton");
+  let dislikeButton = document.getElementById("dislikeButton");
+
+  likeButton.addEventListener("click", function() {
+    likeButton.classList.toggle("liked");
+    dislikeButton.classList.remove("disliked");
+  });
+
+  dislikeButton.addEventListener("click", function() {
+    dislikeButton.classList.toggle("disliked");
+    likeButton.classList.remove("liked");
+  });
+
+  messageDiv.append(contentContainer, removeButton, pinButton, likeButton, dislikeButton);
 
   removeButton.addEventListener("click", async () => {
     console.log(id);
