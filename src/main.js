@@ -1,4 +1,5 @@
 import { displayMessages } from "./js/displayMessage.js";
+import { setupMessageSearch } from "./js/searchMessages.js";
 
 // Funktion för att växla mellan mörkt och ljust läge
 const darkModeToggle = document.getElementById('dark-mode-toggle');
@@ -22,3 +23,6 @@ darkModeToggle.addEventListener('click', () => {
   
 
 displayMessages("messagesContainer");
+
+// Initialize search functionality
+setupMessageSearch();
