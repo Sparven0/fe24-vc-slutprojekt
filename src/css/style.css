@@ -47,7 +47,7 @@ input[type="text"]:focus,
     border: 1px solid #ccc;
 }
 
-#messageForm button{
+#messageForm button, #userForm button{
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -58,7 +58,7 @@ input[type="text"]:focus,
     font-weight: bold;
 }
 
-#messageForm button:hover{
+#messageForm button:hover, #userForm button:hover{
     background-color: #6b6eff;
     color: white;
     cursor: pointer
@@ -162,7 +162,6 @@ input[type="text"]:focus,
   border: #6b6eff 2px solid;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 110px;
-  position: fixed;
   top: 280px;
 }
 

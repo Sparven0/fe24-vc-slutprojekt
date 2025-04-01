@@ -21,11 +21,16 @@
       <div class="leftBar">
         
         <div class="formDiv">
+          <form id="userForm">
+            <label for="newUsername">Create User</label>
+            <input type="text" placeholder="username" name="newUsername" id="newUsername"/>
+            <label for="newShadowBanned">Shadow-ban</label>
+            <input type="checkbox" name="newShadowBanned" id="newShadowBanned">
+            <button type="submit">Create User</button>
+          </form>
           <form id="messageForm">
-            <label for="username">username</label>
-            <input type="text" placeholder="username" name="username" />
-            <label for="shadowBanned">Shadow-ban</label>
-            <input type="checkbox" name="shadowBanned" id="shadowBanned">
+            <label for="usernameSelect">Select User</label>
+            <select name="usernameSelect" id="usernameSelect"></select>
             <textarea
               name="messageTxt"
               id="messageTxt"

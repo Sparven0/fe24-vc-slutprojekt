@@ -1,10 +1,11 @@
 import { database } from "./firebase";
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue, update, get } from "firebase/database";
 import { removeMessageById } from "./fetch";
 import { shuffleMessages } from "./shuffleMessages";
 
 export function displayMessages(containerId) {
   const messagesRef = ref(database, "messages");
+  const usersRef = ref(database, "users");
   const container = document.getElementById(containerId);
 
   if (!container) {
@@ -16,17 +17,29 @@ export function displayMessages(containerId) {
 
   const displayedMessages = {};
 
-  onValue(messagesRef, (snapshot) => {
-    const messages = snapshot.val();
+  async function updateDisplayedMessages(messages) {
+    const selectedUserId = document.getElementById("usernameSelect").value;
+    const userRef = ref(database, `users/${selectedUserId}`);
+    const userSnapshot = await get(userRef);
+    const currentUser = userSnapshot.val();
 
-    // Remove deleted messages
+    if (!currentUser) {
+      console.error("Current user not found");
+      return;
+    }
+    const usersSnapshot = await get(usersRef);
+    const users = usersSnapshot.val();
+
+    if (!users) {
+      console.error("Users not found");
+      return;
+    }
+
     Object.keys(displayedMessages).forEach((id) => {
-      if (!messages || !messages[id]) {
-        const messageElement = displayedMessages[id];
-        if (messageElement) {
-          container.removeChild(messageElement);
-          delete displayedMessages[id];
-        }
+      const messageElement = displayedMessages[id];
+      if (messageElement) {
+        container.removeChild(messageElement);
+        delete displayedMessages[id];
       }
     });
 
@@ -36,18 +49,38 @@ export function displayMessages(containerId) {
       });
 
       sorted.forEach(([id, message]) => {
-        if (!displayedMessages[id]) {
-          const messageElement = createMessageElement(
-            id,
-            message,
-            container,
-            displayedMessages
-          );
-          container.appendChild(messageElement);
-          displayedMessages[id] = messageElement;
+        const messageUser = users[message.username];
+
+        if (
+          !message.shadowBanned ||
+          (message.shadowBanned && message.username === currentUser.username) ||
+          message.username === currentUser.username
+        ) {
+          if (!displayedMessages[id]) {
+            const messageElement = createMessageElement(
+              id,
+              message,
+              container,
+              displayedMessages
+            );
+            container.appendChild(messageElement);
+            displayedMessages[id] = messageElement;
+          }
         }
       });
     }
+  }
+
+  onValue(messagesRef, (snapshot) => {
+    const messages = snapshot.val();
+    updateDisplayedMessages(messages);
+  });
+
+  const usernameSelect = document.getElementById("usernameSelect");
+  usernameSelect.addEventListener("change", async () => {
+    const messagesSnapshot = await get(messagesRef);
+    const messages = messagesSnapshot.val();
+    updateDisplayedMessages(messages);
   });
 }
 
@@ -67,10 +100,10 @@ function createMessageElement(id, message, container, displayedMessages) {
   contentContainer.classList.add("contentContainer");
 
   const username = document.createElement("h4");
-  username.textContent = message._username;
+  username.textContent = message.username;
 
   const text = document.createElement("p");
-  text.textContent = message._message;
+  text.textContent = message.message;
 
   contentContainer.append(username, text);
 
@@ -102,7 +135,7 @@ function createMessageElement(id, message, container, displayedMessages) {
     messageDiv.style.zIndex = newPinned ? "1000" : "1";
   });
 
-  const color = message._color;
+  const color = message.color;
   messageDiv.style.borderColor = color;
 
   if (message._shadowBanned) {
@@ -153,7 +186,9 @@ function createMessageElement(id, message, container, displayedMessages) {
 
   do {
     randomX = Math.floor(Math.random() * (containerWidth - actualMessageWidth));
-    randomY = Math.floor(Math.random() * (containerHeight - actualMessageHeight));
+    randomY = Math.floor(
+      Math.random() * (containerHeight - actualMessageHeight)
+    );
 
     isOverlapping = Object.values(displayedMessages).some((existingMessage) => {
       if (existingMessage.classList.contains("pinned")) return false; // Skip pinned for overlap
