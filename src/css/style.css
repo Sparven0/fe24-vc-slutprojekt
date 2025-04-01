@@ -103,6 +103,23 @@ input[type="text"]:focus,
   margin-left: 10px;
 }
 
+.like {
+  background-color: #4CAF50; /* Grön för "like" */
+  color: white;
+}
+.dislike {
+  background-color: #f44336; /* Röd för "dislike" */
+  color: white;
+}
+
+.liked {
+  background-color: #45a049; /* Ljusgrön när gillat */
+}
+
+.disliked {
+  background-color: #d32f2f; /* Ljusröd när ogillat */
+}
+
 #messagesContainer {
     width: 100%;
     overflow: scroll;
