@@ -3,7 +3,10 @@ import { ref, onValue, update, get } from "firebase/database";
 import { removeMessageById } from "./fetch";
 import { shuffleMessages } from "./shuffleMessages";
 
+let isRemoving = false;
+
 export function displayMessages(containerId) {
+  
   const messagesRef = ref(database, "messages");
   const usersRef = ref(database, "users");
   const container = document.getElementById(containerId);
@@ -72,6 +75,9 @@ export function displayMessages(containerId) {
   }
 
   onValue(messagesRef, (snapshot) => {
+    if(isRemoving == true){
+      return;
+    }
     const messages = snapshot.val();
     updateDisplayedMessages(messages);
   });
@@ -170,9 +176,16 @@ function createMessageElement(id, message, container, displayedMessages) {
   );
 
   removeButton.addEventListener("click", async () => {
-    console.log(id);
-    removeMessageById(id);
-    const allMessages = document.querySelectorAll(".message");
+    shake();  
+    setTimeout(async () => {
+      await removeMessageById(id); 
+    }, 1000);
+  });
+  
+
+
+function shake(){
+  const allMessages = document.querySelectorAll(".message");
     allMessages.forEach((msg) => {
       const delay = Math.random() * 500;
       setTimeout(() => {
@@ -182,7 +195,7 @@ function createMessageElement(id, message, container, displayedMessages) {
         }, 1000);
       }, delay);
     });
-  });
+}
 
   // 📌 If pinned with saved position, use it
   if (
