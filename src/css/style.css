@@ -2,6 +2,13 @@
 @import url(pin.css);
 @import url(search.css);
 
+:root {
+  --arrow-bg: rgba(255, 255, 255, 0.3);
+  --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
+  --option-bg: white;
+  --select-bg: rgba(255, 255, 255, 0.2);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,67 +16,101 @@
   font-family: Arial, sans-serif;
 }
 
+select {
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* width: 20rem; */
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+      linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+    color: white;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* Remove IE arrow */
+    &::-ms-expand {
+      display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+      outline: none;
+    }
+    /* <option> colors */
+    option {
+      color: inherit;
+      background-color: var(--option-bg);
+    }
+  }
+  
+
 .mainContainer {
   display: flex;
   height: 100vh;
 }
 
-.leftBar{
-    width: 20%;
-    background: rgb(203,200,255);
-background: linear-gradient(0deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 47%, rgba(0,212,255,1) 100%);
-    padding: 10px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.leftBar {
+  width: 20%;
+  background: rgb(203, 200, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(203, 200, 255, 1) 0%,
+    rgba(255, 117, 244, 1) 47%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-
-input[type="text"]{
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 input[type="text"]:focus,
 #messageTxt:focus {
-    outline: none; 
-    border-color: #6b6eff; 
-    box-shadow: 0 0 5px rgba(107, 110, 255, 0.5); 
+  outline: none;
+  border-color: #6b6eff;
+  box-shadow: 0 0 5px rgba(107, 110, 255, 0.5);
 }
 
-
-#messageTxt{
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+#messageTxt {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-#messageForm button, #userForm button{
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #4346fd;
-    color: white;
-    font-weight: bold;
+#messageForm button,
+#userForm button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #4346fd;
+  color: white;
+  font-weight: bold;
 }
 
-#messageForm button:hover, #userForm button:hover{
-    background-color: #6b6eff;
-    color: white;
-    cursor: pointer
+#messageForm button:hover,
+#userForm button:hover {
+  background-color: #6b6eff;
+  color: white;
+  cursor: pointer;
 }
-.formDiv{
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.formDiv {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message {
@@ -89,14 +130,14 @@ input[type="text"]:focus,
 }
 
 .message h4 {
-    margin: 0;
-    font-size: 1.2em;
-    width: 100%;
+  margin: 0;
+  font-size: 1.2em;
+  width: 100%;
 }
 
 .message p {
-    margin: 5px 0;
-    width: 100%;
+  margin: 5px 0;
+  width: 100%;
 }
 
 .message span {
@@ -105,7 +146,7 @@ input[type="text"]:focus,
 }
 
 .like {
-  background-color: #4CAF50; /* Grön för "like" */
+  background-color: #4caf50; /* Grön för "like" */
   color: white;
 }
 .dislike {
@@ -122,28 +163,27 @@ input[type="text"]:focus,
 }
 
 #messagesContainer {
-    width: 100%;
-    overflow: scroll;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    padding-left: 2%;
+  width: 100%;
+  overflow: scroll;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  padding-left: 2%;
 }
 
 /* Alriks feature*/
 .shadowBanned {
-    display: none;
+  display: none;
 }
 
-.removeButton{
-   
-    border:none;
-    background-color: transparent;
+.removeButton {
+  border: none;
+  background-color: transparent;
 }
 
-.removeButton:hover{
-   cursor: pointer;
+.removeButton:hover {
+  cursor: pointer;
 }
 
 #fireworksContainer {
@@ -169,7 +209,11 @@ input[type="text"]:focus,
 }
 
 .sideMenu {
-  background: linear-gradient(0deg, rgba(203,200,255,1) 50%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(203, 200, 255, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
   padding: 10px;
   height: 32vh;
   display: flex;
@@ -211,7 +255,12 @@ input[type="text"]:focus,
 }
 
 .gradient-text {
-  background: linear-gradient(0deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 27%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(203, 200, 255, 1) 0%,
+    rgba(255, 117, 244, 1) 27%,
+    rgba(0, 212, 255, 1) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 4em; /* Justera efter behov */
@@ -232,7 +281,12 @@ input[type="text"]:focus,
   width: 60%;
   max-width: 500px;
   margin: 55px;
-  background: linear-gradient(135deg, rgba(203,200,255,1) 0%, rgba(255,117,244,1) 50%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(203, 200, 255, 1) 0%,
+    rgba(255, 117, 244, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -243,7 +297,7 @@ input[type="text"]:focus,
   margin-top: 10px;
 }
 
-#contactForm input, 
+#contactForm input,
 #contactForm textarea {
   width: 100%;
   padding: 10px;
@@ -277,8 +331,6 @@ input[type="text"]:focus,
   padding: 20px;
   background-color: #f9f9f9;
 }
-
-
 
 @keyframes shake {
   0% {
@@ -328,12 +380,10 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-
 body.dark-mode {
-  background-color: #121212; 
-  color: #ffffff; 
+  background-color: #121212;
+  color: #ffffff;
 }
-
 
 #dark-mode-toggle {
   position: fixed;
@@ -355,12 +405,10 @@ body.dark-mode #dark-mode-toggle {
   color: #000;
 }
 
-
 body.dark-mode .message {
   background-color: #333;
   color: white;
 }
-
 
 body.dark-mode input[type="text"],
 body.dark-mode #messageTxt {
@@ -369,7 +417,6 @@ body.dark-mode #messageTxt {
   border: 1px solid #666;
 }
 
-
 body.dark-mode #messageForm button {
   background-color: #555;
 }
@@ -377,7 +424,6 @@ body.dark-mode #messageForm button {
 body.dark-mode #messageForm button:hover {
   background-color: #6b6eff;
 }
-
 
 body.dark-mode #messagesContainer {
   background-color: #222;
@@ -439,12 +485,11 @@ body.dark-mode #messagesContainer {
 
   #dark-mode-toggle,
   #shuffleButton {
-
     padding: 8px 12px;
     font-size: 14px;
   }
 
-  .gradient-text{
+  .gradient-text {
     font-size: 2em;
   }
 
